@@ -23,15 +23,23 @@ public class IntegrationTest {
 	@Parameters(method = "paramsForTestIntegrationValid")
 	public void testSuccessBookRoom(
 			User user, 
-			Room roomAvailable, 
 			int room_requested,
+			Boolean[] availabilityVIP, 
+			Boolean[] availabilityDeluxe, 
+			Boolean[] availabilityStandard,
 			Room expectedRoomAllocated
 			) {
 		
 		WaitingList waitingList = new WaitingList();
+		
 		Booking booking = new Booking(1);
 		
-		booking.setBooking(user, room_requested, roomAvailable, waitingList);
+		Room roomAvailMock = mock(Room.class);
+		when(roomAvailMock.checkRoom("VIP Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityVIP)));
+		when(roomAvailMock.checkRoom("Deluxe Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityDeluxe)));
+		when(roomAvailMock.checkRoom("Standard Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityStandard)));
+		
+		booking.setBooking(user, room_requested, roomAvailMock, waitingList);
 		
 		Room actualRoomAllocated = booking.getRoomAllocated();
 		
@@ -45,8 +53,10 @@ public class IntegrationTest {
 		return new Object [] {
 				new Object[] {
 						new User("Goh", "VIP", true),
-						new Room(3, 3, 3),
 						3,
+						new Boolean[] {true, true, true},
+						new Boolean[] {},
+						new Boolean[] {},
 						new Room(3, 0, 0),
 						
 				},
@@ -57,8 +67,10 @@ public class IntegrationTest {
 	@Parameters(method = "paramsForTestBookRoomButWait")
 	public void testBookRoomButWait(
 			User user, 
-			Room roomAvailable, 
 			int room_requested,
+			Boolean[] availabilityVIP, 
+			Boolean[] availabilityDeluxe, 
+			Boolean[] availabilityStandard,
 			List<User> expectedUserList
 			) {
 		
@@ -66,7 +78,12 @@ public class IntegrationTest {
 		
 		Booking booking = new Booking(1);
 		
-		booking.setBooking(user, room_requested, roomAvailable, waitingList);
+		Room roomAvailMock = mock(Room.class);
+		when(roomAvailMock.checkRoom("VIP Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityVIP)));
+		when(roomAvailMock.checkRoom("Deluxe Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityDeluxe)));
+		when(roomAvailMock.checkRoom("Standard Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityStandard)));
+		
+		booking.setBooking(user, room_requested, roomAvailMock, waitingList);
 		
 		List<User> actualUserList = waitingList.getWaiting(user.getMember_type());
 		
@@ -78,8 +95,10 @@ public class IntegrationTest {
 		return new Object [] {
 				new Object[] {
 						new User("Goh", "VIP", true),
-						new Room(2, 0, 0),
 						3,
+						new Boolean[] {true, true, false},
+						new Boolean[] {},
+						new Boolean[] {},
 						new ArrayList<User>() {{ 
 							add(new User("Goh", "VIP", true));
 							}}
@@ -112,14 +131,15 @@ public class IntegrationTest {
 	@Parameters(method = "paramsForTestIntegrationInvalid")
 	public void testBookRoomInvalid(
 			User user, 
-			Room roomAvailable, 
 			int room_requested
 			) {
 		
 		WaitingList waitingList = new WaitingList();
 		Booking booking = new Booking(1);
 		
-		booking.setBooking(user, room_requested, roomAvailable, waitingList);
+		Room roomAvailMock = mock(Room.class);
+		
+		booking.setBooking(user, room_requested, roomAvailMock, waitingList);
 		
 		Room actualRoomAllocated = booking.getRoomAllocated();
 		
@@ -129,7 +149,6 @@ public class IntegrationTest {
 		return new Object [] {
 				new Object[] {
 						new User("Goh", "VIP", true),
-						new Room(3, 3, 3),
 						4,
 						
 				},
