@@ -232,4 +232,25 @@ public class BookingTest {
 		
 	}
 	
+	@Test
+	public void testCancelBookingRemoveFromWaitingList() {
+		
+		int bookingIdToRemove = 1;
+		Booking booking = new Booking(bookingIdToRemove);
+		booking.setAllocatedStatus(false);
+		
+		User userMock = mock(User.class);
+		when(userMock.getBooking(anyInt())).thenReturn(booking);
+		
+		Room roomAvailMock = mock(Room.class);
+		
+		WaitingList waitingListMock = mock(WaitingList.class);
+		
+		
+		booking.cancelBooking(userMock, bookingIdToRemove, roomAvailMock, waitingListMock);
+		
+		verify(waitingListMock, times(1)).removeWaiting(userMock);
+		
+	}
+	
 }

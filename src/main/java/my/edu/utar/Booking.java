@@ -66,7 +66,6 @@ public class Booking {
 			case "VIP":
 				if(roomAvailable.checkRoom("VIP Room")) {
 					vip_room++;
-					roomAvailable.setVIP(roomAvailable.getVIP()-1);
 					
 					allocatedStatus = true;
 					
@@ -98,7 +97,6 @@ public class Booking {
 					
 				}else if(roomAvailable.checkRoom("Deluxe Room")){
 					deluxe_room++;
-					roomAvailable.setDeluxe(roomAvailable.getDeluxe()-1);
 					
 					allocatedStatus = true;
 					
@@ -118,7 +116,7 @@ public class Booking {
 			case "Normal":
 				if (roomAvailable.checkRoom("Standard Room")){
 					standard_room++;
-					roomAvailable.setStandard(roomAvailable.getStandard()-1);
+
 					
 					allocatedStatus = true;
 					
@@ -136,6 +134,11 @@ public class Booking {
 			roomAllocated = new Room(vip_room, deluxe_room, standard_room);
 			user.addBooking(this);
 		}else {
+			
+			roomAvailable.setVIP(roomAvailable.getVIP()- vip_room);
+			roomAvailable.setDeluxe(roomAvailable.getDeluxe() - deluxe_room);
+			roomAvailable.setStandard(roomAvailable.getStandard()- standard_room);
+			
 			roomAllocated = new Room(vip_room, deluxe_room, standard_room);
 			user.addBooking(this);
 			
