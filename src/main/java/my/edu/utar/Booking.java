@@ -43,7 +43,7 @@ public class Booking {
 		int deluxe_room = 0;
 		int standard_room = 0;
 		
-		if (room_requested < 0)
+		if (room_requested <= 0)
 			throw new IllegalArgumentException();
 		
 		switch(user.getMember_type()) {

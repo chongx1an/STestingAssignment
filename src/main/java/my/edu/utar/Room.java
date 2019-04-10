@@ -36,27 +36,6 @@ public class Room {
 	}
 	
 	public boolean checkRoom(String room_type) {
-		switch(room_type) {
-			case "VIP Room":
-				if (vip > 0) {
-					return true;
-				}else {
-					return false;
-				}
-			case "Deluxe Room":
-				if (deluxe > 0) {
-					return true;
-				}else {
-					return false;
-				}
-			case "Standard Room":
-				if (standard > 0) {
-					return true;
-				}else {
-					return false;
-				}
-			default:
-				return false;
-		}
+		return true;
 	}
 }

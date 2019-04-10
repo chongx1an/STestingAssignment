@@ -1,0 +1,6 @@
+VIP,4
+Member,3
+Normal,2
+VIP,0
+Member,0
+Normal,0

@@ -4,9 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -147,11 +152,13 @@ public class IntegrationTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	@Parameters(method = "paramsForTestIntegrationInvalid")
+	@Parameters(method = "paramsForTestIntegrationInvalidValue")
 	public void testBookRoomInvalid(
-			User user, 
+			String member_type, 
 			int room_requested
 			) {
+		
+		User user = new User("Goh", member_type, true); 
 		
 		WaitingList waitingList = new WaitingList();
 		Booking booking = new Booking(1);
@@ -164,13 +171,53 @@ public class IntegrationTest {
 		
 	}
 	
-	private Object[] paramsForTestIntegrationInvalid() {
+	private Object[] paramsForTestIntegrationInvalidValue() {
+		
+		List<Object> returnedObj = new ArrayList<Object>();
+
+
+        String line = null;
+        
+        try {
+
+            FileReader fileReader = new FileReader("paramsForTestIntegrationInvalidValue.txt");
+
+
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while((line = bufferedReader.readLine()) != null) {
+                StringTokenizer parameters = new StringTokenizer(line); 
+                String member_type = parameters.nextToken(",");
+                int number_of_rooms= Integer.parseInt(parameters.nextToken(",")) ;
+                returnedObj.add(new Object[] {member_type,number_of_rooms});
+            }   
+
+            bufferedReader.close();         
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                "Unable to open file '");                
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error reading file '");                  
+            // Or we could just do this: 
+            // ex.printStackTrace();
+        }
+        
+        Object[] returnedObjArray = new Object[returnedObj.size()];
+        returnedObjArray = returnedObj.toArray(returnedObjArray);
+		/*
 		return new Object [] {
-				new Object[] {
-						new User("Goh", "VIP", true),
-						4,
-						
-				},
+				new Object[] {"VIP", 4},
+				new Object[] {"Member", 3},
+				new Object[] {"Normal", 2 },
+				new Object[] {"VIP", 0},
+				new Object[] {"Member", 0},
+				new Object[] {"Normal", 0 },
+				
 		};
+		*/
+        return  returnedObjArray;
 	}
 }
