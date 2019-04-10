@@ -34,19 +34,25 @@ public class IntegrationTest {
 		
 		Booking booking = new Booking(1);
 		
+		Printer printerMock = mock(Printer.class);
+		booking.setPrinter(printerMock);
+		
 		Room roomAvailMock = mock(Room.class);
 		when(roomAvailMock.checkRoom("VIP Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityVIP)));
 		when(roomAvailMock.checkRoom("Deluxe Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityDeluxe)));
 		when(roomAvailMock.checkRoom("Standard Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityStandard)));
 		
 		booking.setBooking(user, room_requested, roomAvailMock, waitingList);
-		
+
 		Room actualRoomAllocated = booking.getRoomAllocated();
-		
+
 		assertEquals(expectedRoomAllocated.getVIP(), actualRoomAllocated.getVIP());
 		assertEquals(expectedRoomAllocated.getDeluxe(), actualRoomAllocated.getDeluxe());
 		assertEquals(expectedRoomAllocated.getStandard(), actualRoomAllocated.getStandard());
 		
+		verify(printerMock, times(expectedRoomAllocated.getVIP())).printInfo(user.getName(), user.getMember_type(), "VIP Room");
+		verify(printerMock, times(expectedRoomAllocated.getDeluxe())).printInfo(user.getName(), user.getMember_type(), "Deluxe Room");
+		verify(printerMock, times(expectedRoomAllocated.getStandard())).printInfo(user.getName(), user.getMember_type(), "Standard Room");
 	}
 	
 	private Object[] paramsForTestIntegrationValid() {
@@ -58,6 +64,15 @@ public class IntegrationTest {
 						new Boolean[] {},
 						new Boolean[] {},
 						new Room(3, 0, 0),
+						
+				},
+				new Object[] {
+						new User("Goh", "VIP", true),
+						2,
+						new Boolean[] {true, true},
+						new Boolean[] {},
+						new Boolean[] {},
+						new Room(2, 0, 0),
 						
 				},
 		};
@@ -78,6 +93,9 @@ public class IntegrationTest {
 		
 		Booking booking = new Booking(1);
 		
+		Printer printerMock = mock(Printer.class);
+		booking.setPrinter(printerMock);
+		
 		Room roomAvailMock = mock(Room.class);
 		when(roomAvailMock.checkRoom("VIP Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityVIP)));
 		when(roomAvailMock.checkRoom("Deluxe Room")).thenAnswer(AdditionalAnswers.returnsElementsOf(Arrays.asList(availabilityDeluxe)));
@@ -89,6 +107,7 @@ public class IntegrationTest {
 		
 		assertTrue(checkEquals(expectedUserList, actualUserList));
 		
+		verifyZeroInteractions(printerMock);
 	}
 	
 	private Object[] paramsForTestBookRoomButWait() {

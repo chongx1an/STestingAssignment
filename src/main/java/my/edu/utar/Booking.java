@@ -8,7 +8,12 @@ public class Booking {
 	private int id;
 	private Room roomAllocated;
 	private boolean allocatedStatus;
-
+	private Printer printer;
+	
+	public void setPrinter (Printer printer) {
+		this.printer = printer;
+	}
+	
 	public void setRoomAllocated(Room roomAllocated) {
 		this.roomAllocated = roomAllocated;
 	}
@@ -30,6 +35,7 @@ public class Booking {
 	public Booking(int id) {
 		this.id = id;
 		allocatedStatus = false;
+		printer = new Printer();
 	}
 	
 	public void setBooking(User user, int room_requested, Room roomAvailable, WaitingList waitingList) {
@@ -61,17 +67,19 @@ public class Booking {
 				if(roomAvailable.checkRoom("VIP Room")) {
 					vip_room++;
 					roomAvailable.setVIP(roomAvailable.getVIP()-1);
-
+					
 					allocatedStatus = true;
 					
 				}else if(roomAvailable.checkRoom("Deluxe Room")){
 					deluxe_room++;
 					roomAvailable.setDeluxe(roomAvailable.getDeluxe()-1);
+					
 					allocatedStatus = true;
 					
 				}else if (roomAvailable.checkRoom("Standard Room")){
 					standard_room++;
 					roomAvailable.setStandard(roomAvailable.getStandard()-1);
+					
 					allocatedStatus = true;
 					
 				}else {
@@ -85,16 +93,19 @@ public class Booking {
 					vip_room++;
 					roomAvailable.setVIP(roomAvailable.getVIP()-1);
 					user.removeExcl_Reward();
+					
 					allocatedStatus = true;
 					
 				}else if(roomAvailable.checkRoom("Deluxe Room")){
 					deluxe_room++;
 					roomAvailable.setDeluxe(roomAvailable.getDeluxe()-1);
+					
 					allocatedStatus = true;
 					
 				}else if (roomAvailable.checkRoom("Standard Room")){
 					standard_room++;
 					roomAvailable.setStandard(roomAvailable.getStandard()-1);
+					
 					allocatedStatus = true;
 					
 				}
@@ -108,6 +119,7 @@ public class Booking {
 				if (roomAvailable.checkRoom("Standard Room")){
 					standard_room++;
 					roomAvailable.setStandard(roomAvailable.getStandard()-1);
+					
 					allocatedStatus = true;
 					
 				}
@@ -126,6 +138,19 @@ public class Booking {
 		}else {
 			roomAllocated = new Room(vip_room, deluxe_room, standard_room);
 			user.addBooking(this);
+			
+			for(int i = 0; i < vip_room; i++) {
+				printer.printInfo(user.getName(), user.getMember_type(), "VIP Room");
+			}
+				
+			for(int i = 0; i < deluxe_room; i++) {
+				printer.printInfo(user.getName(), user.getMember_type(), "Deluxe Room");
+			}
+			
+			for(int i = 0; i < standard_room; i++) {
+				printer.printInfo(user.getName(), user.getMember_type(), "Standard Room");
+			}
+		
 		}
 		
 		
