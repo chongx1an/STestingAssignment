@@ -1,7 +1,9 @@
 package my.edu.utar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.*;
 
 import java.io.BufferedReader;
@@ -94,8 +96,8 @@ public class IntegrationTest {
 			int room_requested,
 			Boolean[] availabilityVIP, 
 			Boolean[] availabilityDeluxe, 
-			Boolean[] availabilityStandard,
-			List<User> expectedUserList
+			Boolean[] availabilityStandard
+			
 			) {
 		
 		WaitingList waitingList = new WaitingList();
@@ -114,7 +116,7 @@ public class IntegrationTest {
 		
 		List<User> actualUserList = waitingList.getWaiting(user.getMember_type());
 		
-		assertTrue(checkEquals(expectedUserList, actualUserList));
+		assertTrue(actualUserList.contains(user));
 		
 		verifyZeroInteractions(printerMock);
 	}
@@ -127,34 +129,11 @@ public class IntegrationTest {
 						new Boolean[] {true, true, false},
 						new Boolean[] {},
 						new Boolean[] {},
-						new ArrayList<User>() {{ 
-							add(new User("Goh", "VIP", true));
-							}}
+						
 				},
 		};
 	}
-	
-	private boolean checkEquals(List<User> expected, List<User> actual) {
-		boolean status = false;
-		int i = 0;
-		if(expected.size() == actual.size()) {
-			while(i < expected.size()) {
-				User expectedUser = expected.get(i);
-				User actualUser = actual.get(i);
-				
-				if(expectedUser.getName().equals(actualUser.getName())&&
-						expectedUser.getMember_type().equals(actualUser.getMember_type())) {
-					status = true;
-				}else {
-					status = false;
-				}
-				i++;
-			}
-		}
 		
-		return status;
-	}
-	
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters(method = "paramsForTestIntegrationInvalidValue")
 	public void testBookRoomInvalid(
@@ -222,5 +201,56 @@ public class IntegrationTest {
 		};
 		*/
         return  returnedObjArray;
+	}
+	
+	@Test
+	public void testCancelBookingRemoveFromBookings() {
+		
+		int bookingIdToRemove = 1;
+		Booking booking = new Booking(bookingIdToRemove);
+		booking.setAllocatedStatus(true);
+		//booking.setRoomAllocated(new Room(3, 0, 0));
+		booking.setVip_roomAllocated(3);
+		booking.setDeluxe_roomAllocated(0);
+		booking.setStandard_roomAllocated(0);
+		
+		User user = new User("Goh", "VIP", true);
+		
+		Room roomAvailMock = mock(Room.class);
+		
+		WaitingList waitingList = new WaitingList();
+		
+		user.addBooking(booking);
+		booking.cancelBooking(user, bookingIdToRemove, roomAvailMock, waitingList);
+		
+		List<Booking> actualBookings = user.getBookings();
+		
+		assertFalse(actualBookings.contains(booking));
+		verify(roomAvailMock, times(1)).setVIP(anyInt());
+		verify(roomAvailMock, times(1)).setDeluxe(anyInt());
+		verify(roomAvailMock, times(1)).setStandard(anyInt());
+		
+	}
+	
+	@Test
+	public void testCancelBookingRemoveFromWaitingList() {
+		
+		int bookingIdToRemove = 1;
+		Booking booking = new Booking(bookingIdToRemove);
+		booking.setAllocatedStatus(false);
+		
+		User user = new User("Goh", "VIP", true);
+		
+		Room roomAvailMock = mock(Room.class);
+		when(roomAvailMock.checkRoom(anyString())).thenReturn(false);
+		
+		WaitingList waitingList = new WaitingList();
+		booking.setBooking(user, 3, roomAvailMock, waitingList);
+		
+		booking.cancelBooking(user, bookingIdToRemove, roomAvailMock, waitingList);
+		List<User> actualUserList = waitingList.getWaiting(user.getMember_type());
+		
+		assertFalse(actualUserList.contains(user));
+		
 	}
 }

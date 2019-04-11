@@ -207,10 +207,10 @@ public class Booking {
 				roomAvailable.setDeluxe(roomAvailable.getDeluxe()+deluxe_roomToCancel);
 				roomAvailable.setStandard(roomAvailable.getStandard()+standard_roomToCancel);
 	
-			}else {
-				waitingList.removeWaiting(user);
-	
 			}
+		}else {
+			waitingList.removeWaiting(user);
+			
 		}
 		
 	}

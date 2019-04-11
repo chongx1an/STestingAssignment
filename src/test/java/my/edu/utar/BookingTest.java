@@ -249,7 +249,7 @@ public class BookingTest {
 		booking.setAllocatedStatus(false);
 		
 		User userMock = mock(User.class);
-		when(userMock.getBooking(anyInt())).thenReturn(booking);
+		when(userMock.getBooking(anyInt())).thenReturn(null);
 		
 		Room roomAvailMock = mock(Room.class);
 		

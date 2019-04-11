@@ -30,7 +30,7 @@ public class UserTest {
 	
 	@Test
 	@Parameters(method = "paramsForTestRemoveBooking")
-	public void testRemoveBooking(List<Booking> bookings, Booking booking, List<Booking> expectedBookings) {
+	public void testRemoveBooking(List<Booking> bookings, Booking booking) {
 		User user = new User("Goh", "VIP", true);
 		
 		user.setBookings(bookings);
@@ -39,7 +39,7 @@ public class UserTest {
 		
 		List<Booking> actualBookings = user.getBookings();
 		
-		assertTrue(checkEquals(expectedBookings, actualBookings));
+		assertFalse(actualBookings.contains(booking));
 		
 	}
 	
@@ -48,31 +48,9 @@ public class UserTest {
 				new Object[] {
 					new ArrayList<Booking>() {{ add(new Booking(1)); add(new Booking(2)); }},
 					new Booking(1),
-					new ArrayList<Booking>() {{ add(new Booking(2)); }},
+		
 				}
 		};
 	}
 	
-	private boolean checkEquals(List<Booking> expected, List<Booking> actual) {
-		boolean status = false;
-		int i = 0;
-		
-		if(expected.size() == actual.size()) {
-			while(i < expected.size()) {
-				Booking expectedBooking = expected.get(i);
-				Booking actualBooking = actual.get(i);
-				
-
-				if(expectedBooking.getID() == actualBooking.getID()) {
-					status = true;
-				}else {
-					status = false;
-				}
-				i++;
-			}
-		}
-		
-		return status;
-	}
-
 }
