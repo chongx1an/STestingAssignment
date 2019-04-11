@@ -3,7 +3,6 @@ package my.edu.utar;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Ignore;

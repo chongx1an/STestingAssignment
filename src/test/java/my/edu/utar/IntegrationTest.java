@@ -69,22 +69,222 @@ public class IntegrationTest {
 	private Object[] paramsForTestIntegrationValid() {
 		return new Object [] {
 				new Object[] {
-						new User("Goh", "VIP", true),
+						new User("Goh", "VIP", false), //vip2
 						3,
 						new Boolean[] {true, true, true},
 						new Boolean[] {},
 						new Boolean[] {},
-						3, 0, 0,
-						
+						3, 0, 0
 				},
 				new Object[] {
-						new User("Goh", "VIP", true),
-						2,
+						new User("Goh","VIP", false), //vip3
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, true, true},
+						new Boolean[] {},
+						0, 3, 0
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip4
+						3,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, true, true},
+						0, 0, 3
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip5
+						3,
+						new Boolean[] {true, true, false},
+						new Boolean[] {true},
+						new Boolean[] {},
+						2, 1, 0
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip6
+						3,
+						new Boolean[] {true, true, false},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						2, 0, 1
+				},
+				
+				new Object[] {
+						new User("Goh","VIP", false), //vip7
+						3,
+						new Boolean[] {true, false},
 						new Boolean[] {true, true},
 						new Boolean[] {},
+						1, 2, 0
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip8
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, true, false},
+						new Boolean[] {true},
+						0, 2, 1
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip9
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+						new Boolean[] {true, true},
+						1, 0, 2
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip10
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {true, true},
+						0, 1, 2
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip11
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {true, false},
+						new Boolean[] {true},
+						1, 1, 1
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip31
+						1,
+						new Boolean[] {true},
 						new Boolean[] {},
-						2, 0, 0,
-						
+						new Boolean[] {},
+						1, 0, 0
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip32
+						1,
+						new Boolean[] {false},
+						new Boolean[] {true},
+						new Boolean[] {},
+						0, 1, 0
+				},
+				new Object[] {
+						new User("Goh","VIP", false), //vip33
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						0, 0, 1
+				},
+				
+				new Object[] {
+						new User("Goh", "Member", true), //member2
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, true},
+						new Boolean[] {},
+						0, 2, 0
+				},
+				new Object[] {
+						new User("Goh", "Member", true), //member3
+						2,
+						new Boolean[] {true},
+						new Boolean[] {true, false},
+						new Boolean[] {},
+						1, 1, 0
+				},
+				new Object[] {
+						new User("Goh","Member", true), //member4
+						2,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {true},
+						0, 1, 1
+				},
+				new Object[] {
+						new User("Goh","Member", true), //member5
+						2,
+						new Boolean[] {true},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						1, 0, 1
+				},
+				new Object[] {
+						new User("Goh","Member", true), //member6
+						2,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, true},
+						0, 0, 2
+				},
+				new Object[] {
+						new User("Goh","Member", false), //member7
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, true},
+						new Boolean[] {},
+						0, 2, 0
+				},
+				new Object[] {
+						new User("Goh","Member", false), //member8
+						2,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {true, true},
+						0, 0, 2
+				},
+				new Object[] {
+						new User("Goh","Member", false), //member8
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, false},
+						new Boolean[] {true},
+						0, 1, 1
+				},
+				new Object[] {
+						new User("Goh","Member", true), //member17
+						1,
+						new Boolean[] {true},
+						new Boolean[] {false},
+						new Boolean[] {},
+						1, 0, 0
+				},
+				new Object[] {
+						new User("Goh","Member", true), //member18
+						1,
+						new Boolean[] {},
+						new Boolean[] {true},
+						new Boolean[] {},
+						0, 1, 0
+				},
+				new Object[] {
+						new User("Goh","Member", true), //member19
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						0, 0, 1
+				},
+				new Object[] {
+						new User("Goh","Member", false), //member20
+						1,
+						new Boolean[] {},
+						new Boolean[] {true},
+						new Boolean[] {},
+						0, 1, 0
+				},
+				new Object[] {
+						new User("Goh","Member", false), //member21
+						1,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						0, 0, 1
+				},
+				new Object[] {
+						new User("Goh","Normal", false), //normal12
+						1,
+						new Boolean[] {},
+						new Boolean[] {},
+						new Boolean[] {true},
+						0, 0, 1
 				},
 		};
 	}
@@ -124,12 +324,144 @@ public class IntegrationTest {
 	private Object[] paramsForTestBookRoomButWait() {
 		return new Object [] {
 				new Object[] {
-						new User("Goh", "VIP", true),
+						new User("Goh", "VIP", false), //vip12
 						3,
 						new Boolean[] {true, true, false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip13
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip14
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip15
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip16
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip17
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip18
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip19
+						3,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip20
+						3,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "VIP", false), //vip34
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", true), //member10
+						2,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", true), //member11
+						2,
+						new Boolean[] {true},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", true), //member12
+						2,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {
+						new User("Goh", "Member", true), //member13
+						2,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", false), //member14
+						2,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", false), //member15
+						2,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {
+						new User("Goh", "Member", false), //member16
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", true), //member22
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Member", false), //member23
+						1,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {
+						new User("Goh", "Normal", false), //normal3
+						1,
 						new Boolean[] {},
 						new Boolean[] {},
-						
+						new Boolean[] {false},
 				},
 		};
 	}
@@ -207,9 +539,9 @@ public class IntegrationTest {
 	public void testCancelBookingRemoveFromBookings() {
 		
 		int bookingIdToRemove = 1;
+		
 		Booking booking = new Booking(bookingIdToRemove);
 		booking.setAllocatedStatus(true);
-		//booking.setRoomAllocated(new Room(3, 0, 0));
 		booking.setVip_roomAllocated(3);
 		booking.setDeluxe_roomAllocated(0);
 		booking.setStandard_roomAllocated(0);
