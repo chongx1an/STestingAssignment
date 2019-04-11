@@ -6,7 +6,10 @@ import java.util.List;
 public class Booking {
 	
 	private int id;
-	private Room roomAllocated;
+	//private Room roomAllocated;
+	private int vip_roomAllocated;
+	int deluxe_roomAllocated;
+	int standard_roomAllocated;
 	private boolean allocatedStatus;
 	private Printer printer;
 	
@@ -14,12 +17,39 @@ public class Booking {
 		this.printer = printer;
 	}
 	
-	public void setRoomAllocated(Room roomAllocated) {
+	/*public void setRoomAllocated(Room roomAllocated) {
 		this.roomAllocated = roomAllocated;
 	}
 	public Room getRoomAllocated() {
 		return roomAllocated;
+	}*/
+	
+	public void setVip_roomAllocated(int vip) {
+		this.vip_roomAllocated = vip;
 	}
+	
+	public void setDeluxe_roomAllocated(int deluxe) {
+		this.vip_roomAllocated = deluxe;
+	}
+	
+	public void setStandard_roomAllocated(int standard) {
+		this.vip_roomAllocated = standard;
+	}
+	
+	public int getVip_roomAllocated() {
+		return vip_roomAllocated;
+	}
+	
+	public int getDeluxe_roomAllocated() {
+		return deluxe_roomAllocated;
+	}
+
+	
+	public int getStandard_roomAllocated() {
+		return standard_roomAllocated;
+	}
+
+	
 	public int getID() {
 		return id;
 	}
@@ -88,15 +118,15 @@ public class Booking {
 				break;
 				
 			case "Member":
-				if(roomAvailable.checkRoom("VIP Room") && user.getExcl_reward()) {
-					vip_room++;
-					roomAvailable.setVIP(roomAvailable.getVIP()-1);
-					user.removeExcl_Reward();
+				if(roomAvailable.checkRoom("Deluxe Room")){
+					deluxe_room++;
 					
 					allocatedStatus = true;
 					
-				}else if(roomAvailable.checkRoom("Deluxe Room")){
-					deluxe_room++;
+				}else if(roomAvailable.checkRoom("VIP Room") && user.getExcl_reward()) {
+					vip_room++;
+					roomAvailable.setVIP(roomAvailable.getVIP()-1);
+					user.removeExcl_Reward();
 					
 					allocatedStatus = true;
 					
@@ -131,15 +161,17 @@ public class Booking {
 		}
 		if(allocatedStatus == false) {
 			waitingList.addWaiting(user);
-			roomAllocated = new Room(vip_room, deluxe_room, standard_room);
-			user.addBooking(this);
+			
 		}else {
 			
 			roomAvailable.setVIP(roomAvailable.getVIP()- vip_room);
 			roomAvailable.setDeluxe(roomAvailable.getDeluxe() - deluxe_room);
 			roomAvailable.setStandard(roomAvailable.getStandard()- standard_room);
 			
-			roomAllocated = new Room(vip_room, deluxe_room, standard_room);
+			vip_roomAllocated = vip_room;
+			deluxe_roomAllocated = deluxe_room;
+			standard_roomAllocated = standard_room;
+			//= new Room(vip_room, deluxe_room, standard_room);
 			user.addBooking(this);
 			
 			for(int i = 0; i < vip_room; i++) {
@@ -167,10 +199,13 @@ public class Booking {
 		if(bookingToRemove != null) {
 			if (bookingToRemove.getAllocatedStatus()) {
 				user.removeBooking(bookingToRemove);
-				Room roomToCancel = bookingToRemove.getRoomAllocated();
-				roomAvailable.setVIP(roomAvailable.getVIP()+roomToCancel.getVIP());
-				roomAvailable.setDeluxe(roomAvailable.getDeluxe()+roomToCancel.getDeluxe());
-				roomAvailable.setStandard(roomAvailable.getStandard()+roomToCancel.getStandard());
+				//Room roomToCancel = bookingToRemove.getRoomAllocated();
+				int vip_roomToCancel = bookingToRemove.getVip_roomAllocated();
+				int deluxe_roomToCancel = bookingToRemove.getDeluxe_roomAllocated();
+				int standard_roomToCancel = bookingToRemove.getStandard_roomAllocated();
+				roomAvailable.setVIP(roomAvailable.getVIP()+vip_roomToCancel);
+				roomAvailable.setDeluxe(roomAvailable.getDeluxe()+deluxe_roomToCancel);
+				roomAvailable.setStandard(roomAvailable.getStandard()+standard_roomToCancel);
 	
 			}else {
 				waitingList.removeWaiting(user);

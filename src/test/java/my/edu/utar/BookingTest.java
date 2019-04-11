@@ -32,7 +32,9 @@ public class BookingTest {
 			Boolean[] availabilityVIP, 
 			Boolean[] availabilityDeluxe, 
 			Boolean[] availabilityStandard,
-			Room expectedRoomAllocated
+			int expectedVipRoomAllocated,
+			int expectedDeluxeRoomAllocated,
+			int expectedStandardRoomAllocated
 		) {
 		
 		User userMock = mock(User.class);
@@ -49,11 +51,15 @@ public class BookingTest {
 		Booking booking = new Booking(1);
 		booking.setBooking(userMock, room_requested, roomAvailMock, waitingListMock);
 		
-		Room actualRoomAllocated = booking.getRoomAllocated();
+		int actualVipRoomAllocated = booking.getVip_roomAllocated();
+		int actualDeluxeRoomAllocated = booking.getDeluxe_roomAllocated();
+		int actualStandardRoomAllocated = booking.getStandard_roomAllocated();
 		
-		assertEquals(expectedRoomAllocated.getVIP(), actualRoomAllocated.getVIP());
-		assertEquals(expectedRoomAllocated.getDeluxe(), actualRoomAllocated.getDeluxe());
-		assertEquals(expectedRoomAllocated.getStandard(), actualRoomAllocated.getStandard());
+		//Room actualRoomAllocated = booking.getRoomAllocated();
+		
+		assertEquals(expectedVipRoomAllocated, actualVipRoomAllocated);
+		assertEquals(expectedDeluxeRoomAllocated, actualDeluxeRoomAllocated);
+		assertEquals(expectedStandardRoomAllocated, actualStandardRoomAllocated);
 	}
 	
 	private Object[] paramsForTestSetSuccessBookingValidValue() {
@@ -64,7 +70,7 @@ public class BookingTest {
 						new Boolean[] {true, true, true},
 						new Boolean[] {},
 						new Boolean[] {},
-						new Room(3, 0, 0)
+						3, 0, 0
 				},
 				new Object[] {"VIP", 
 						true,
@@ -72,7 +78,7 @@ public class BookingTest {
 						new Boolean[] {false},
 						new Boolean[] {true, true, true},
 						new Boolean[] {},
-						new Room(0, 3, 0)
+						0, 3, 0
 				},
 				new Object[] {"VIP", 
 						true,
@@ -80,7 +86,7 @@ public class BookingTest {
 						new Boolean[] {false},
 						new Boolean[] {false},
 						new Boolean[] {true, true, true},
-						new Room(0, 0, 3)
+						0, 0, 3
 				},
 				new Object[] {"VIP", 
 						true,
@@ -88,7 +94,7 @@ public class BookingTest {
 						new Boolean[] {true, true, false},
 						new Boolean[] {true},
 						new Boolean[] {},
-						new Room(2, 1, 0)
+						2, 1, 0
 				},
 
 		};
@@ -213,7 +219,10 @@ public class BookingTest {
 		int bookingIdToRemove = 1;
 		Booking booking = new Booking(bookingIdToRemove);
 		booking.setAllocatedStatus(true);
-		booking.setRoomAllocated(new Room(3, 0, 0));
+		//booking.setRoomAllocated(new Room(3, 0, 0));
+		booking.setVip_roomAllocated(3);
+		booking.setDeluxe_roomAllocated(0);
+		booking.setStandard_roomAllocated(0);
 		
 		User userMock = mock(User.class);
 		when(userMock.getBooking(anyInt())).thenReturn(booking);

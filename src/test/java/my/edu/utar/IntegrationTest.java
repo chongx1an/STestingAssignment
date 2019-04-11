@@ -32,7 +32,9 @@ public class IntegrationTest {
 			Boolean[] availabilityVIP, 
 			Boolean[] availabilityDeluxe, 
 			Boolean[] availabilityStandard,
-			Room expectedRoomAllocated
+			int expectedVipRoomAllocated,
+			int expectedDeluxeRoomAllocated,
+			int expectedStandardRoomAllocated
 			) {
 		
 		WaitingList waitingList = new WaitingList();
@@ -49,15 +51,17 @@ public class IntegrationTest {
 		
 		booking.setBooking(user, room_requested, roomAvailMock, waitingList);
 
-		Room actualRoomAllocated = booking.getRoomAllocated();
+		int actualVipRoomAllocated = booking.getVip_roomAllocated();
+		int actualDeluxeRoomAllocated = booking.getDeluxe_roomAllocated();
+		int actualStandardRoomAllocated = booking.getStandard_roomAllocated();
 
-		assertEquals(expectedRoomAllocated.getVIP(), actualRoomAllocated.getVIP());
-		assertEquals(expectedRoomAllocated.getDeluxe(), actualRoomAllocated.getDeluxe());
-		assertEquals(expectedRoomAllocated.getStandard(), actualRoomAllocated.getStandard());
+		assertEquals(expectedVipRoomAllocated, actualVipRoomAllocated);
+		assertEquals(expectedDeluxeRoomAllocated, actualDeluxeRoomAllocated);
+		assertEquals(expectedStandardRoomAllocated, actualStandardRoomAllocated);
 		
-		verify(printerMock, times(expectedRoomAllocated.getVIP())).printInfo(user.getName(), user.getMember_type(), "VIP Room");
-		verify(printerMock, times(expectedRoomAllocated.getDeluxe())).printInfo(user.getName(), user.getMember_type(), "Deluxe Room");
-		verify(printerMock, times(expectedRoomAllocated.getStandard())).printInfo(user.getName(), user.getMember_type(), "Standard Room");
+		verify(printerMock, times(expectedVipRoomAllocated)).printInfo(user.getName(), user.getMember_type(), "VIP Room");
+		verify(printerMock, times(expectedDeluxeRoomAllocated)).printInfo(user.getName(), user.getMember_type(), "Deluxe Room");
+		verify(printerMock, times(expectedStandardRoomAllocated)).printInfo(user.getName(), user.getMember_type(), "Standard Room");
 	}
 	
 	private Object[] paramsForTestIntegrationValid() {
@@ -68,7 +72,7 @@ public class IntegrationTest {
 						new Boolean[] {true, true, true},
 						new Boolean[] {},
 						new Boolean[] {},
-						new Room(3, 0, 0),
+						3, 0, 0,
 						
 				},
 				new Object[] {
@@ -77,7 +81,7 @@ public class IntegrationTest {
 						new Boolean[] {true, true},
 						new Boolean[] {},
 						new Boolean[] {},
-						new Room(2, 0, 0),
+						2, 0, 0,
 						
 				},
 		};
@@ -167,7 +171,6 @@ public class IntegrationTest {
 		
 		booking.setBooking(user, room_requested, roomAvailMock, waitingList);
 		
-		Room actualRoomAllocated = booking.getRoomAllocated();
 		
 	}
 	
