@@ -64,37 +64,223 @@ public class BookingTest {
 	
 	private Object[] paramsForTestSetSuccessBookingValidValue() {
 		return new Object [] {
-				new Object[] {"VIP", 
-						true,
+				new Object[] {"VIP", //vip2
+						false,
 						3,
 						new Boolean[] {true, true, true},
 						new Boolean[] {},
 						new Boolean[] {},
 						3, 0, 0
 				},
-				new Object[] {"VIP", 
-						true,
+				new Object[] {"VIP", //vip3
+						false,
 						3,
 						new Boolean[] {false},
 						new Boolean[] {true, true, true},
 						new Boolean[] {},
 						0, 3, 0
 				},
-				new Object[] {"VIP", 
-						true,
+				new Object[] {"VIP", //vip4
+						false,
 						3,
 						new Boolean[] {false},
 						new Boolean[] {false},
 						new Boolean[] {true, true, true},
 						0, 0, 3
 				},
-				new Object[] {"VIP", 
-						true,
+				new Object[] {"VIP", //vip5
+						false,
 						3,
 						new Boolean[] {true, true, false},
 						new Boolean[] {true},
 						new Boolean[] {},
 						2, 1, 0
+				},
+				new Object[] {"VIP", //vip6
+						false,
+						3,
+						new Boolean[] {true, true, false},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						2, 0, 1
+				},
+				
+				new Object[] {"VIP", //vip7
+						false,
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {true, true},
+						new Boolean[] {},
+						1, 2, 0
+				},
+				new Object[] {"VIP", //vip8
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, true, false},
+						new Boolean[] {true},
+						0, 2, 1
+				},
+				new Object[] {"VIP", //vip9
+						false,
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+						new Boolean[] {true, true},
+						1, 0, 2
+				},
+				new Object[] {"VIP", //vip10
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {true, true},
+						0, 1, 2
+				},
+				new Object[] {"VIP", //vip11
+						false,
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {true, false},
+						new Boolean[] {true},
+						1, 1, 1
+				},
+				new Object[] {"VIP", //vip31
+						false,
+						1,
+						new Boolean[] {true},
+						new Boolean[] {},
+						new Boolean[] {},
+						1, 0, 0
+				},
+				new Object[] {"VIP", //vip32
+						false,
+						1,
+						new Boolean[] {false},
+						new Boolean[] {true},
+						new Boolean[] {},
+						0, 1, 0
+				},
+				new Object[] {"VIP", //vip33
+						false,
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						0, 0, 1
+				},
+				
+				new Object[] {"Member", //member2
+						true,
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, true},
+						new Boolean[] {},
+						0, 2, 0
+				},
+				new Object[] {"Member", //member3
+						true,
+						2,
+						new Boolean[] {true},
+						new Boolean[] {true, false},
+						new Boolean[] {},
+						1, 1, 0
+				},
+				new Object[] {"Member", //member4
+						true,
+						2,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {true},
+						0, 1, 1
+				},
+				new Object[] {"Member", //member5
+						true,
+						2,
+						new Boolean[] {true},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						1, 0, 1
+				},
+				new Object[] {"Member", //member6
+						true,
+						2,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, true},
+						0, 0, 2
+				},
+				new Object[] {"Member", //member7
+						false,
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, true},
+						new Boolean[] {},
+						0, 2, 0
+				},
+				new Object[] {"Member", //member8
+						false,
+						2,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {true, true},
+						0, 0, 2
+				},
+				new Object[] {"Member", //member9
+						false,
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, false},
+						new Boolean[] {true},
+						0, 1, 1
+				},
+				new Object[] {"Member", //member17
+						true,
+						1,
+						new Boolean[] {true},
+						new Boolean[] {false},
+						new Boolean[] {},
+						1, 0, 0
+				},
+				new Object[] {"Member", //member18
+						true,
+						1,
+						new Boolean[] {},
+						new Boolean[] {true},
+						new Boolean[] {},
+						0, 1, 0
+				},
+				new Object[] {"Member", //member19
+						true,
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						0, 0, 1
+				},
+				new Object[] {"Member", //member20
+						false,
+						1,
+						new Boolean[] {},
+						new Boolean[] {true},
+						new Boolean[] {},
+						0, 1, 0
+				},
+				new Object[] {"Member", //member21
+						false,
+						1,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {true},
+						0, 0, 1
+				},
+				new Object[] {"Normal", //normal2
+						false,
+						1,
+						new Boolean[] {},
+						new Boolean[] {},
+						new Boolean[] {true},
+						0, 0, 1
 				},
 
 		};
@@ -131,11 +317,144 @@ public class BookingTest {
 	
 	private Object[] paramsForTestSetWaitingBookingValidValue() {
 		return new Object [] {
-				new Object[] {"VIP", 
-						true,
+				new Object[] {"VIP", //vip12
+						false,
 						3,
 						new Boolean[] {true, true, false},
 						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"VIP", //vip13
+						false,
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {"VIP", //vip14
+						false,
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {"VIP", //vip15
+						false,
+						3,
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"VIP", //vip16
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {"VIP", //vip17
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {"VIP", //vip18
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {"VIP", //vip19
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {"VIP", //vip20
+						false,
+						3,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"VIP", //vip34
+						false,
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member10						
+						true,
+						2,
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member11					
+						true,
+						2,
+						new Boolean[] {true},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member12						
+						true,
+						2,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {"Member", //member13						
+						true,
+						2,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member14						
+						false,
+						2,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member15						
+						false,
+						2,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {true, false},
+				},
+				new Object[] {"Member", //member16						
+						false,
+						2,
+						new Boolean[] {},
+						new Boolean[] {true, false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member22					
+						true,
+						1,
+						new Boolean[] {false},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Member", //member23					
+						false,
+						1,
+						new Boolean[] {},
+						new Boolean[] {false},
+						new Boolean[] {false},
+				},
+				new Object[] {"Normal", //normal3					
+						false,
+						1,
+						new Boolean[] {},
+						new Boolean[] {},
 						new Boolean[] {false},
 				},
 				
