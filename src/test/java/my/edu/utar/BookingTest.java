@@ -23,6 +23,12 @@ import junitparams.JUnitParamsRunner;
 @RunWith(JUnitParamsRunner.class)
 public class BookingTest {
 	
+	/*
+	 * Test the condition that
+	 * user books a valid number of rooms and
+	 * the bookings is succeed.
+	 * 
+	 */
 	@Test
 	@Parameters(method = "paramsForTestSetSuccessBookingValidValue")
 	public void testSetSuccessBookingValidValue(
@@ -55,13 +61,21 @@ public class BookingTest {
 		int actualDeluxeRoomAllocated = booking.getDeluxe_roomAllocated();
 		int actualStandardRoomAllocated = booking.getStandard_roomAllocated();
 		
-		//Room actualRoomAllocated = booking.getRoomAllocated();
-		
+		/*
+		 * Check the 
+		 * - amount of VIP room allocated to user
+		 * - amount of Deluxe room allocated to user
+		 * - amount of Standard room allocated to user
+		 * 
+		 */
 		assertEquals(expectedVipRoomAllocated, actualVipRoomAllocated);
 		assertEquals(expectedDeluxeRoomAllocated, actualDeluxeRoomAllocated);
 		assertEquals(expectedStandardRoomAllocated, actualStandardRoomAllocated);
 	}
 	
+	/*
+	 * Boundary Value Analysis used
+	 */
 	private Object[] paramsForTestSetSuccessBookingValidValue() {
 		return new Object [] {
 				new Object[] {"VIP", //vip2
@@ -286,6 +300,13 @@ public class BookingTest {
 		};
 	}
 	
+	/*
+	 * Test the condition that
+	 * user book a valid number of rooms but
+	 * the room is not enough to allocate and
+	 * user is add into respectively waiting list based on user's member.
+	 * 
+	 */
 	@Test
 	@Parameters(method = "paramsForTestSetWaitingBookingValidValue")
 	public void testSetWaitingBookingValidValue(
@@ -461,6 +482,12 @@ public class BookingTest {
 		};
 	}
 	
+	/*
+	 * Test the condition that
+	 * user books a invalid number of rooms and
+	 * the bookings session is aborted.
+	 * 
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters(method = "paramsForTestSetBookingInvalidValue")
 	public void testSetBookingInvalidValue(
@@ -512,8 +539,7 @@ public class BookingTest {
         catch(IOException ex) {
             System.out.println(
                 "Error reading file '");                  
-            // Or we could just do this: 
-            // ex.printStackTrace();
+
         }
         
         Object[] returnedObjArray = new Object[returnedObj.size()];
@@ -532,13 +558,19 @@ public class BookingTest {
         return  returnedObjArray;
 	}
 	
+	/*
+	 * Test the condition that
+	 * user cancels a successfully booking.
+	 * (Remove the specific booking from user booking list)
+	 * 
+	 */
 	@Test
 	public void testCancelBookingRemoveFromBookings() {
 		
 		int bookingIdToRemove = 1;
 		Booking booking = new Booking(bookingIdToRemove);
+		
 		booking.setAllocatedStatus(true);
-		//booking.setRoomAllocated(new Room(3, 0, 0));
 		booking.setVip_roomAllocated(3);
 		booking.setDeluxe_roomAllocated(0);
 		booking.setStandard_roomAllocated(0);
@@ -560,6 +592,13 @@ public class BookingTest {
 		
 	}
 	
+	/*
+	 * Test the condition that
+	 * user cancels a unsuccessfully booking that
+	 * put user inside the waiting list.
+	 * (Remove user from waiting list)
+	 * 
+	 */
 	@Test
 	public void testCancelBookingRemoveFromWaitingList() {
 		

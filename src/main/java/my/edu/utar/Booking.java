@@ -1,12 +1,8 @@
 package my.edu.utar;
 
-import java.util.Iterator;
-import java.util.List;
-
 public class Booking {
 	
 	private int id;
-	//private Room roomAllocated;
 	private int vip_roomAllocated;
 	int deluxe_roomAllocated;
 	int standard_roomAllocated;
@@ -16,13 +12,6 @@ public class Booking {
 	public void setPrinter (Printer printer) {
 		this.printer = printer;
 	}
-	
-	/*public void setRoomAllocated(Room roomAllocated) {
-		this.roomAllocated = roomAllocated;
-	}
-	public Room getRoomAllocated() {
-		return roomAllocated;
-	}*/
 	
 	public void setVip_roomAllocated(int vip) {
 		this.vip_roomAllocated = vip;
@@ -171,7 +160,7 @@ public class Booking {
 			vip_roomAllocated = vip_room;
 			deluxe_roomAllocated = deluxe_room;
 			standard_roomAllocated = standard_room;
-			//= new Room(vip_room, deluxe_room, standard_room);
+
 			user.addBooking(this);
 			
 			for(int i = 0; i < vip_room; i++) {
@@ -199,10 +188,11 @@ public class Booking {
 		if(bookingToRemove != null) {
 			if (bookingToRemove.getAllocatedStatus()) {
 				user.removeBooking(bookingToRemove);
-				//Room roomToCancel = bookingToRemove.getRoomAllocated();
+
 				int vip_roomToCancel = bookingToRemove.getVip_roomAllocated();
 				int deluxe_roomToCancel = bookingToRemove.getDeluxe_roomAllocated();
 				int standard_roomToCancel = bookingToRemove.getStandard_roomAllocated();
+				
 				roomAvailable.setVIP(roomAvailable.getVIP()+vip_roomToCancel);
 				roomAvailable.setDeluxe(roomAvailable.getDeluxe()+deluxe_roomToCancel);
 				roomAvailable.setStandard(roomAvailable.getStandard()+standard_roomToCancel);
